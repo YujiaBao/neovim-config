@@ -19,8 +19,11 @@ A modern, reproducible Neovim configuration built for Python/ML engineering.
 ```
 
 2. **Run setup:**
-This script installs Neovim, fonts, ripgrep, creates a Python virtualenv, and symlinks the config.
+
+This script installs Neovim, fonts, ripgrep, tree-sitter-cli, creates a Python virtualenv, and symlinks the config.
+
 ```bash
+
 ./install.sh
 
 ```

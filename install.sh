@@ -13,8 +13,14 @@ fi
 
 # 2. Install Dependencies
 echo "📦 Installing System Dependencies..."
-# ripgrep/fd are needed for Telescope; lazygit is a nice TUI for git
-brew install neovim ripgrep fd lazygit
+# ripgrep/fd are needed for Telescope; lazygit is a nice TUI for git; tree-sitter-cli for parsers
+brew install neovim ripgrep fd lazygit tree-sitter-cli
+
+# Check for C compiler (required for Treesitter)
+if ! command -v gcc &> /dev/null && ! command -v clang &> /dev/null; then
+    echo "⚠️  No C compiler found (gcc/clang). Treesitter parsers might fail to compile."
+    echo "   Running 'xcode-select --install' might fix this on macOS."
+fi
 
 # 3. Install Nerd Font (Required for Icons)
 echo "🔤 Installing Hack Nerd Font..."

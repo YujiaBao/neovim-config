@@ -12,16 +12,15 @@ return {
     config = function()
       require("mason").setup()
       require("mason-lspconfig").setup({
-        ensure_installed = { "pyright", "lua_ls", "texlab" },
+        ensure_installed = { "pyright", "ruff", "lua_ls", "texlab" },
+        handlers = {
+          function(server_name)
+            require("lspconfig")[server_name].setup({
+              capabilities = require("cmp_nvim_lsp").default_capabilities(),
+            })
+          end,
+        },
       })
-
-      local lspconfig = require("lspconfig")
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-      -- Setup Servers
-      lspconfig.pyright.setup({ capabilities = capabilities })
-      lspconfig.texlab.setup({ capabilities = capabilities })
-      lspconfig.lua_ls.setup({ capabilities = capabilities })
 
       -- Global LSP Keymaps (Buffer local)
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -30,6 +29,10 @@ return {
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
           vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+          vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts) -- Code Action
+          vim.keymap.set("n", "gl", vim.diagnostic.open_float, opts)       -- Show line diagnostics
+          vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)        -- Prev diagnostic
+          vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)        -- Next diagnostic
         end,
       })
     end,

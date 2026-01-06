@@ -7,28 +7,61 @@ return {
     keys = {
       { "<C-n>", ":Neotree filesystem reveal left toggle<CR>", desc = "Toggle Tree" },
     },
+    opts = {
+      window = {
+        mappings = {
+          ["v"] = "open_vsplit",
+          ["s"] = "open_split",
+        },
+      },
+    },
   },
 
   -- Fuzzy Finder (Telescope)
   {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.5",
+    branch = "0.1.x",
     dependencies = { "nvim-lua/plenary.nvim" },
     keys = {
       { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
       { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Grep Text" },
       { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
     },
+    config = function()
+      local actions = require("telescope.actions")
+      require("telescope").setup({
+        defaults = {
+          preview = {
+            treesitter = false,
+          },
+          mappings = {
+            i = {
+              ["<C-v>"] = actions.file_vsplit,
+              ["<C-s>"] = actions.file_split,
+            },
+            n = {
+              ["v"] = actions.file_vsplit,
+              ["s"] = actions.file_split,
+              ["<C-v>"] = actions.file_vsplit,
+              ["<C-s>"] = actions.file_split,
+            },
+          },
+        },
+      })
+    end,
   },
 
   -- Treesitter (Syntax Highlighting)
   {
     "nvim-treesitter/nvim-treesitter",
+    event = { "BufReadPre", "BufNewFile" },
     build = ":TSUpdate",
     config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = { "c", "lua", "vim", "python", "markdown", "latex" },
+      require("nvim-treesitter").setup({
+        ensure_installed = { "c", "lua", "vim", "python", "markdown", "latex", "bash" },
+        sync_install = false,
         highlight = { enable = true },
+        indent = { enable = true },
       })
     end,
   },
