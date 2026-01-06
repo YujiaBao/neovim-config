@@ -27,6 +27,9 @@ return {
         callback = function(args)
           local opts = { buffer = args.buf }
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+          vim.keymap.set("n", "gs", function() vim.cmd("split"); vim.lsp.buf.definition() end, opts) -- Split horizontal
+          vim.keymap.set("n", "gv", function() vim.cmd("vsplit"); vim.lsp.buf.definition() end, opts) -- Split vertical
+          vim.keymap.set("n", "gt", function() vim.cmd("tab split"); vim.lsp.buf.definition() end, opts) -- New tab
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
           vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
           vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts) -- Code Action

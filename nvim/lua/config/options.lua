@@ -23,6 +23,10 @@ opt.softtabstop = 4
 opt.ignorecase = true
 opt.smartcase = true
 
+-- Splits
+opt.splitright = true       -- Vertical splits open to the right
+opt.splitbelow = true       -- Horizontal splits open below
+
 -- System
 opt.clipboard = "unnamedplus" -- Sync with Mac clipboard
 opt.undofile = true           -- Persistent undo
