@@ -6,7 +6,8 @@ A modern, reproducible Neovim configuration built for Python/ML engineering.
 * **Config:** Native Lua (`init.lua` + modules)
 * **Manager:** [Lazy.nvim](https://github.com/folke/lazy.nvim)
 * **LSP:** Native LSP + Mason (Pyright, Texlab)
-* **Formatting:** Conform (Black)
+* **Formatting:** Conform (Ruff)
+* **Treesitter:** Main Branch (Native Folding)
 * **Theme:** Gruvbox
 
 > **For AI Agents:** Please refer to [AGENT_GUIDE.md](./AGENT_GUIDE.md) for structural details and conventions.
@@ -75,3 +76,11 @@ This script installs Neovim, fonts, ripgrep, tree-sitter-cli, creates a Python v
 | **Inside Terminal** | |
 | `<Esc>` or `jk` | Enter Normal Mode |
 | `<Ctrl-h/j/k/l>` | Window Navigation |
+
+### Code Folding (Native)
+| Key | Action |
+| --- | --- |
+| `zc` | Close Fold |
+| `zo` | Open Fold |
+| `zR` | Open All Folds |
+| `zM` | Close All Folds |

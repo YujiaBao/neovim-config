@@ -46,6 +46,12 @@ This is a personal Neovim configuration based on:
     *   **Capabilities**: Must inject `cmp_nvim_lsp` capabilities into `lspconfig`.
     *   **Formatting**: Managed by `conform.nvim` in `lsp.lua` (e.g., Black for Python).
 
+5.  **Treesitter Configuration**:
+    *   **Branch**: Must use `branch = "main"` (the rewrite version).
+    *   **Setup**: Use `require("nvim-treesitter").install({...})` for parsers.
+    *   **Do not use**: `require("nvim-treesitter.configs")` (deprecated).
+    *   **Folding**: Use `vim.treesitter.foldexpr()` (native).
+
 3.  **Keymaps**:
     *   **Global**: Put in `nvim/lua/config/keymaps.lua`.
     *   **Plugin-specific**: Put in the `keys = { ... }` table within the plugin's spec in `nvim/lua/plugins/`.
