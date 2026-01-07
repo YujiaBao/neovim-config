@@ -37,6 +37,10 @@ return {
           },
           mappings = {
             i = {
+              ["<C-j>"] = actions.move_selection_next,
+              ["<C-k>"] = actions.move_selection_previous,
+              ["<C-l>"] = actions.preview_scrolling_down,
+              ["<C-h>"] = actions.preview_scrolling_up,
               ["<C-v>"] = actions.file_vsplit,
               ["<C-s>"] = actions.file_split,
             },

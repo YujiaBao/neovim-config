@@ -48,4 +48,14 @@ This script installs Neovim, fonts, ripgrep, tree-sitter-cli, creates a Python v
 | `<Ctrl-n>` | Toggle File Tree |
 | `gd` | Go to Definition |
 | `K` | Hover Documentation |
+| `gl` | Show Line Diagnostics |
+| `[d` / `]d` | Previous / Next Diagnostic |
 | `<Space>w` | Fast Save |
+
+### Telescope Navigation (in search window)
+| Key | Action |
+| --- | --- |
+| `<Ctrl-j>` | Next Result |
+| `<Ctrl-k>` | Previous Result |
+| `<Ctrl-l>` | Scroll Preview Down |
+| `<Ctrl-h>` | Scroll Preview Up |

@@ -23,6 +23,11 @@ return {
         },
       })
 
+      -- Diagnostic Config
+      vim.diagnostic.config({
+        float = { border = "rounded" },
+      })
+
       -- Global LSP Keymaps (Buffer local)
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
