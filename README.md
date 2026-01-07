@@ -59,3 +59,19 @@ This script installs Neovim, fonts, ripgrep, tree-sitter-cli, creates a Python v
 | `<Ctrl-k>` | Previous Result |
 | `<Ctrl-l>` | Scroll Preview Down |
 | `<Ctrl-h>` | Scroll Preview Up |
+
+### Terminal (ToggleTerm)
+| Key | Action |
+| --- | --- |
+| `'` | Toggle Terminal 1 (Float) |
+| `<Space>tt` | Tab Terminal 1 |
+| `<Space>ts` | Horizontal Split Terminal 1 |
+| `<Space>tv` | Vertical Split Terminal 1 |
+| `<Space>tf` | Float Terminal 1 |
+| `<Space>[N]tt` | Tab Terminal N (N=1,2,3) |
+| `<Space>[N]ts` | Horizontal Split Terminal N |
+| `<Space>[N]tv` | Vertical Split Terminal N |
+| `<Space>[N]tf` | Float Terminal N |
+| **Inside Terminal** | |
+| `<Esc>` or `jk` | Enter Normal Mode |
+| `<Ctrl-h/j/k/l>` | Window Navigation |
