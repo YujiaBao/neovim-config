@@ -31,7 +31,7 @@ opt.splitbelow = true       -- Horizontal splits open below
 opt.clipboard = "unnamedplus" -- Sync with Mac clipboard
 opt.undofile = true           -- Persistent undo
 opt.updatetime = 250          -- Faster completion update
-opt.timeoutlen = 300          -- Faster key sequence completion
+opt.timeoutlen = 500          -- Faster key sequence completion
 
 -- Disable netrw (Using neo-tree instead)
 vim.g.loaded_netrw = 1
@@ -44,3 +44,12 @@ opt.foldlevel = 99              -- Start unfolded
 opt.foldlevelstart = 99
 opt.foldenable = true
 opt.foldcolumn = "1"            -- Show fold column
+opt.fillchars = { fold = " " }
+
+function _G.SimpleFoldText()
+    local fs = vim.v.foldstart
+    local fe = vim.v.foldend
+    local line = vim.fn.getline(fs)
+    return line .. " ... (" .. (fe - fs + 1) .. " lines)"
+end
+opt.foldtext = "v:lua.SimpleFoldText()"

@@ -82,5 +82,9 @@ This script installs Neovim, fonts, ripgrep, tree-sitter-cli, creates a Python v
 | --- | --- |
 | `zc` | Close Fold |
 | `zo` | Open Fold |
-| `zR` | Open All Folds |
-| `zM` | Close All Folds |
+| `zC` | Close All Folds |
+| `zO` | Open All Folds |
+| `z0` | Close All Folds (Level 0) |
+| `z1` | Show Level 1 (Classes) |
+| `z2` | Show Level 2 (Methods) |
+| `z3` | Show Level 3 |

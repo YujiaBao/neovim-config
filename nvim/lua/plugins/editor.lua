@@ -68,6 +68,20 @@ return {
       require("nvim-treesitter").install({ 
         "c", "lua", "vim", "python", "markdown", "latex", "bash" 
       })
+
+      -- Custom Folding for Python (Show Signatures)
+      -- This overrides the default query to fold the 'block' (body) instead of the definition.
+      local python_folds = [[
+        (function_definition body: (block) @fold)
+        (class_definition body: (block) @fold)
+        (while_statement body: (block) @fold)
+        (for_statement body: (block) @fold)
+        (if_statement consequence: (block) @fold alternative: (block)? @fold)
+        (with_statement body: (block) @fold)
+        (try_statement body: (block) @fold)
+        [(import_statement) (import_from_statement)]+ @fold
+      ]]
+      vim.treesitter.query.set("python", "folds", python_folds)
     end,
   },
 
