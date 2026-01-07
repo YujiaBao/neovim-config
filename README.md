@@ -9,6 +9,8 @@ A modern, reproducible Neovim configuration built for Python/ML engineering.
 * **Formatting:** Conform (Black)
 * **Theme:** Gruvbox
 
+> **For AI Agents:** Please refer to [AGENT_GUIDE.md](./AGENT_GUIDE.md) for structural details and conventions.
+
 ## Installation (Mac)
 
 1. **Clone the repo:**

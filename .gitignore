@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Neovim
+*.swp
+*.swo
+session.vim
+shada
+
+# Python (internal venv)
+nvim/venv/
+__pycache__/
+
+# User-specific
+.local_config.lua

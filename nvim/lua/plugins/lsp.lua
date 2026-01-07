@@ -8,6 +8,7 @@ return {
       "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp",
       "L3MON4D3/LuaSnip",
+      "ray-x/lsp_signature.nvim",
     },
     config = function()
       require("mason").setup()
@@ -36,6 +37,12 @@ return {
           vim.keymap.set("n", "gl", vim.diagnostic.open_float, opts)       -- Show line diagnostics
           vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)        -- Prev diagnostic
           vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)        -- Next diagnostic
+
+          -- Attach lsp_signature for automatic signature help
+          require("lsp_signature").on_attach({
+            bind = true,
+            handler_opts = { border = "rounded" },
+          }, args.buf)
         end,
       })
     end,
@@ -55,9 +62,19 @@ return {
   -- Autocompletion (CMP)
   {
     "hrsh7th/nvim-cmp",
+    dependencies = {
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "saadparwaiz1/cmp_luasnip",
+    },
     config = function()
       local cmp = require("cmp")
       cmp.setup({
+        snippet = {
+          expand = function(args)
+            require("luasnip").lsp_expand(args.body)
+          end,
+        },
         mapping = cmp.mapping.preset.insert({
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -68,6 +85,7 @@ return {
         sources = cmp.config.sources({
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
+          { name = 'path' },
         }, {
           { name = 'buffer' },
         })
