@@ -53,13 +53,13 @@ return {
     end,
   },
 
-  -- Formatting (Black for Python)
+  -- Formatting (Ruff for Python)
   {
     "stevearc/conform.nvim",
     opts = {
-      format_on_save = { timeout_ms = 500, lsp_fallback = true },
+      format_on_save = { timeout_ms = 2500, lsp_fallback = true },
       formatters_by_ft = {
-        python = { "black" },
+        python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
       },
     },
   },
