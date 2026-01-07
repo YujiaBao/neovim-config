@@ -36,3 +36,11 @@ opt.timeoutlen = 300          -- Faster key sequence completion
 -- Disable netrw (Using neo-tree instead)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+-- Folding (Treesitter)
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+opt.foldlevel = 99              -- Start unfolded
+opt.foldlevelstart = 99
+opt.foldenable = true
+opt.foldcolumn = "1"            -- Show fold column

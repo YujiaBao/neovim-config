@@ -59,14 +59,14 @@ return {
   -- Treesitter (Syntax Highlighting)
   {
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPre", "BufNewFile" },
+    branch = "main",
+    lazy = false,
     build = ":TSUpdate",
     config = function()
-      require("nvim-treesitter").setup({
-        ensure_installed = { "c", "lua", "vim", "python", "markdown", "latex", "bash" },
-        sync_install = false,
-        highlight = { enable = true },
-        indent = { enable = true },
+      -- The new nvim-treesitter (main branch) uses .install() instead of configs.setup()
+      require("nvim-treesitter").setup({})
+      require("nvim-treesitter").install({ 
+        "c", "lua", "vim", "python", "markdown", "latex", "bash" 
       })
     end,
   },
