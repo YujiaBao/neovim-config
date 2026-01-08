@@ -64,20 +64,17 @@ This script installs Neovim, fonts, ripgrep, tree-sitter-cli, creates a Python v
 ### Terminal (ToggleTerm)
 | Key | Action |
 | --- | --- |
-| `'` | Toggle Terminal 1 (Float) - *Normal Mode Only* |
-| `<Ctrl-'>` | Toggle Terminal 1 (Float) - *Normal & Insert Mode* |
-| `<Space>tt` | Tab Terminal 1 |
-| `<Space>ts` | Horizontal Split Terminal 1 |
-| `<Space>tv` | Vertical Split Terminal 1 |
-| `<Space>tf` | Float Terminal 1 |
-| `<Space>[N]tt` | Tab Terminal N (N=1,2,3) |
-| `<Space>[N]ts` | Horizontal Split Terminal N |
-| `<Space>[N]tv` | Vertical Split Terminal N |
-| `<Space>[N]tf` | Float Terminal N |
+| `'` | Toggle Floating Terminal (Persistent) - *Normal Mode* |
+| `<Ctrl-'>` | Toggle Floating Terminal (Persistent) - *Any Mode* |
+| `<Space>ts` | New Horizontal Terminal (Non-persistent) |
+| `<Space>tv` | New Vertical Terminal (Non-persistent) |
+| `<Space>tt` | New Tab Terminal (Non-persistent) |
 | **Inside Terminal** | |
-| `'` | Types literal `'` character |
 | `<Esc>` or `jk` | Enter Normal Mode |
-| `<Ctrl-h/j/k/l>` | Window Navigation |
+| `<Ctrl-h/j/k/l>` | Window Navigation (Move focus) |
+| `exit` or `<C-d>` | Close terminal session |
+
+*Note: Horizontal/Vertical/Tab terminals are destroyed when their window is closed.*
 
 ### Code Folding (Native)
 | Key | Action |

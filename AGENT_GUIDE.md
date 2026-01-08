@@ -61,6 +61,12 @@ This is a personal Neovim configuration based on:
     *   The configuration relies on a dedicated virtualenv at `nvim/venv`.
     *   When adding Python tools (linters/formatters), consider if they should be in the venv or installed via Mason (Mason is preferred).
 
+5.  **Terminal Management**:
+    *   **Persistent**: Use ToggleTerm (ID 1) for the floating terminal.
+    *   **One-off**: Use native `:term` for splits and tabs.
+    *   **Cleanup**: Set `bufhidden = "wipe"` for native terminals.
+    *   **UI**: All terminals should have numbers disabled via the `TermOpen` autocommand.
+
 ## Common Tasks
 
 *   **Adding a Plugin**: Create a new file in `nvim/lua/plugins/` (e.g., `coding.lua`) or add to an existing category file.

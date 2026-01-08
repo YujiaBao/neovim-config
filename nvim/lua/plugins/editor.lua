@@ -127,32 +127,30 @@ return {
       end,
     },
     keys = {
-      { "'", "<cmd>ToggleTerm<cr>", desc = "Toggle Terminal" },
-      { "<C-'>", "<cmd>ToggleTerm<cr>", mode = { "n", "t" }, desc = "Toggle Terminal" },
+      -- Persistent Floating Terminal (ToggleTerm ID 1)
+      { "'", function() require("toggleterm").toggle(1, nil, nil, "float") end, desc = "Floating Terminal" },
+      { "<C-'>", function() require("toggleterm").toggle(1, nil, nil, "float") end, mode = { "n", "t" }, desc = "Floating Terminal" },
 
-      -- Terminal 1 (Default)
-      { "<leader>tt", "<cmd>1ToggleTerm direction=tab<cr>", desc = "Tab Terminal 1" },
-      { "<leader>ts", "<cmd>1ToggleTerm size=10 direction=horizontal<cr>", desc = "Horizontal Terminal 1" },
-      { "<leader>tv", "<cmd>1ToggleTerm size=80 direction=vertical<cr>", desc = "Vertical Terminal 1" },
-      { "<leader>tf", "<cmd>1ToggleTerm direction=float<cr>", desc = "Float Terminal 1" },
+      -- Non-persistent Split Terminals (Native Neovim terminals)
+      { "<leader>ts", function()
+        vim.cmd("split | term")
+        vim.cmd("resize 10")
+        vim.opt_local.bufhidden = "wipe"
+        vim.cmd("startinsert")
+      end, desc = "Horizontal Terminal" },
 
-      -- Terminal 1 (Explicit)
-      { "<leader>1tt", "<cmd>1ToggleTerm direction=tab<cr>", desc = "Tab Terminal 1" },
-      { "<leader>1ts", "<cmd>1ToggleTerm size=10 direction=horizontal<cr>", desc = "Horizontal Terminal 1" },
-      { "<leader>1tv", "<cmd>1ToggleTerm size=80 direction=vertical<cr>", desc = "Vertical Terminal 1" },
-      { "<leader>1tf", "<cmd>1ToggleTerm direction=float<cr>", desc = "Float Terminal 1" },
+      { "<leader>tv", function()
+        vim.cmd("vsplit | term")
+        vim.cmd("vertical resize 80")
+        vim.opt_local.bufhidden = "wipe"
+        vim.cmd("startinsert")
+      end, desc = "Vertical Terminal" },
 
-      -- Terminal 2
-      { "<leader>2tt", "<cmd>2ToggleTerm direction=tab<cr>", desc = "Tab Terminal 2" },
-      { "<leader>2ts", "<cmd>2ToggleTerm size=10 direction=horizontal<cr>", desc = "Horizontal Terminal 2" },
-      { "<leader>2tv", "<cmd>2ToggleTerm size=80 direction=vertical<cr>", desc = "Vertical Terminal 2" },
-      { "<leader>2tf", "<cmd>2ToggleTerm direction=float<cr>", desc = "Float Terminal 2" },
-
-      -- Terminal 3
-      { "<leader>3tt", "<cmd>3ToggleTerm direction=tab<cr>", desc = "Tab Terminal 3" },
-      { "<leader>3ts", "<cmd>3ToggleTerm size=10 direction=horizontal<cr>", desc = "Horizontal Terminal 3" },
-      { "<leader>3tv", "<cmd>3ToggleTerm size=80 direction=vertical<cr>", desc = "Vertical Terminal 3" },
-      { "<leader>3tf", "<cmd>3ToggleTerm direction=float<cr>", desc = "Float Terminal 3" },
+      { "<leader>tt", function()
+        vim.cmd("tabnew | term")
+        vim.opt_local.bufhidden = "wipe"
+        vim.cmd("startinsert")
+      end, desc = "Tab Terminal" },
     },
     config = function(_, opts)
       require("toggleterm").setup(opts)
@@ -166,6 +164,10 @@ return {
         vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], options)
         vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], options)
         vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]], options)
+
+        -- Terminal UI defaults
+        vim.opt_local.number = false
+        vim.opt_local.relativenumber = false
       end
 
       vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
