@@ -64,7 +64,8 @@ This script installs Neovim, fonts, ripgrep, tree-sitter-cli, creates a Python v
 ### Terminal (ToggleTerm)
 | Key | Action |
 | --- | --- |
-| `'` | Toggle Terminal 1 (Float) |
+| `'` | Toggle Terminal 1 (Float) - *Normal Mode Only* |
+| `<Ctrl-'>` | Toggle Terminal 1 (Float) - *Normal & Insert Mode* |
 | `<Space>tt` | Tab Terminal 1 |
 | `<Space>ts` | Horizontal Split Terminal 1 |
 | `<Space>tv` | Vertical Split Terminal 1 |
@@ -74,6 +75,7 @@ This script installs Neovim, fonts, ripgrep, tree-sitter-cli, creates a Python v
 | `<Space>[N]tv` | Vertical Split Terminal N |
 | `<Space>[N]tf` | Float Terminal N |
 | **Inside Terminal** | |
+| `'` | Types literal `'` character |
 | `<Esc>` or `jk` | Enter Normal Mode |
 | `<Ctrl-h/j/k/l>` | Window Navigation |
 

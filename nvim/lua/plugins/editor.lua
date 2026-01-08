@@ -97,7 +97,6 @@ return {
     version = "*",
     opts = {
       size = 20,
-      open_mapping = [[']],
       hide_numbers = true,
       shade_filetypes = {},
       shade_terminals = true,
@@ -105,6 +104,7 @@ return {
       start_in_insert = true,
       insert_mappings = true,
       persist_size = true,
+      persist_mode = false,
       direction = "float",
       close_on_exit = true,
       shell = vim.o.shell,
@@ -128,6 +128,7 @@ return {
     },
     keys = {
       { "'", "<cmd>ToggleTerm<cr>", desc = "Toggle Terminal" },
+      { "<C-'>", "<cmd>ToggleTerm<cr>", mode = { "n", "t" }, desc = "Toggle Terminal" },
 
       -- Terminal 1 (Default)
       { "<leader>tt", "<cmd>1ToggleTerm direction=tab<cr>", desc = "Tab Terminal 1" },
