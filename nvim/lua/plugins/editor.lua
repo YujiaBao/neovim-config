@@ -117,31 +117,29 @@ return {
         },
       },
       on_open = function(term)
-        vim.cmd("startinsert!")
-        if term.direction == "float" then
-          local config = vim.api.nvim_win_get_config(term.window)
-          config.title = " Terminal " .. term.id .. " "
-          config.title_pos = "center"
-          vim.api.nvim_win_set_config(term.window, config)
-        end
+        require("util.terminal").on_open(term)
+      end,
+      on_exit = function(term)
+        require("util.terminal").on_exit(term)
       end,
     },
     keys = {
-      -- Persistent Floating Terminal (ToggleTerm ID 1)
-      { "'", function() require("toggleterm").toggle(1, nil, nil, "float") end, desc = "Floating Terminal" },
-      { "<C-'>", function() require("toggleterm").toggle(1, nil, nil, "float") end, mode = { "n", "t" }, desc = "Floating Terminal" },
+      -- Persistent Floating Terminal (ToggleTerm)
+      { "'", function() require("util.terminal").toggle_main_float() end, desc = "Floating Terminal" },
+      { "<C-'>", function() require("util.terminal").toggle_main_float() end, mode = { "n", "t" }, desc = "Floating Terminal" },
+      { "<leader>tn", function() require("util.terminal").create_new_float_terminal() end, desc = "New Floating Terminal" },
 
       -- Non-persistent Split Terminals (Native Neovim terminals)
       { "<leader>ts", function()
         vim.cmd("split | term")
-        vim.cmd("resize 10")
+        vim.cmd("wincmd =")
         vim.opt_local.bufhidden = "wipe"
         vim.cmd("startinsert")
       end, desc = "Horizontal Terminal" },
 
       { "<leader>tv", function()
         vim.cmd("vsplit | term")
-        vim.cmd("vertical resize 80")
+        vim.cmd("wincmd =")
         vim.opt_local.bufhidden = "wipe"
         vim.cmd("startinsert")
       end, desc = "Vertical Terminal" },
@@ -155,22 +153,29 @@ return {
     config = function(_, opts)
       require("toggleterm").setup(opts)
 
-      function _G.set_terminal_keymaps()
-        local options = { buffer = 0 }
-        vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], options)
-        vim.keymap.set("t", "jk", [[<C-\><C-n>]], options)
-        vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], options)
-        vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], options)
-        vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], options)
-        vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], options)
-        vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]], options)
+      vim.api.nvim_create_autocmd("TermOpen", {
+        pattern = "term://*",
+        callback = function()
+          local options = { buffer = 0 }
+          vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], options)
+          vim.keymap.set("t", "jk", [[<C-\><C-n>]], options)
+          vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], options)
+          vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], options)
+          vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], options)
+          vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], options)
+          vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]], options)
 
-        -- Terminal UI defaults
-        vim.opt_local.number = false
-        vim.opt_local.relativenumber = false
-      end
+          -- Tab Navigation (for floating terminals)
+          vim.keymap.set({ "n", "t" }, "gt", function() require("util.terminal").switch_float_terminal(1) end, options)
+          vim.keymap.set({ "n", "t" }, "gT", function() require("util.terminal").switch_float_terminal(-1) end, options)
+          vim.keymap.set("n", "gn", function() require("util.terminal").create_new_float_terminal() end, options)
+          vim.keymap.set({ "n", "t" }, "<C-'>", function() require("util.terminal").toggle_main_float() end, options)
 
-      vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+          -- Terminal UI defaults
+          vim.opt_local.number = false
+          vim.opt_local.relativenumber = false
+        end,
+      })
     end,
   },
 }

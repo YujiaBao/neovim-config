@@ -66,6 +66,8 @@ This script installs Neovim, fonts, ripgrep, tree-sitter-cli, creates a Python v
 | --- | --- |
 | `'` | Toggle Floating Terminal (Persistent) - *Normal Mode* |
 | `<Ctrl-'>` | Toggle Floating Terminal (Persistent) - *Any Mode* |
+| `gt` / `gT` | Next/Prev Floating Terminal (Tab-like) - *When float open* |
+| `<Space>tn` | New Floating Terminal Tab - *Persistent* |
 | `<Space>ts` | New Horizontal Terminal (Non-persistent) |
 | `<Space>tv` | New Vertical Terminal (Non-persistent) |
 | `<Space>tt` | New Tab Terminal (Non-persistent) |
@@ -74,6 +76,7 @@ This script installs Neovim, fonts, ripgrep, tree-sitter-cli, creates a Python v
 | `<Ctrl-h/j/k/l>` | Window Navigation (Move focus) |
 | `exit` or `<C-d>` | Close terminal session |
 
+*Note: The floating terminal supports up to 5 persistent sessions. Use `gt/gT` to switch.*
 *Note: Horizontal/Vertical/Tab terminals are destroyed when their window is closed.*
 
 ### Code Folding (Native)
