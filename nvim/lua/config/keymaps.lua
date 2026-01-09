@@ -7,6 +7,10 @@ map("n", "<leader>q", ":q!<CR>", { desc = "Quit" })
 -- Clear Search Highlights
 map("n", "<leader><space>", ":nohlsearch<CR>", { desc = "Clear Highlights" })
 
+-- Lazy.nvim
+map("n", "<leader>l", ":Lazy<CR>", { desc = "Lazy Dashboard" })
+map("n", "<leader>m", ":Mason<CR>", { desc = "Mason Dashboard" })
+
 -- Window Resizing (Optional, since you use tmux)
 map("n", "<C-Up>", ":resize +2<CR>")
 map("n", "<C-Down>", ":resize -2<CR>")
