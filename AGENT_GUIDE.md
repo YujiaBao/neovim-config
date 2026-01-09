@@ -15,7 +15,6 @@ This is a personal Neovim configuration based on:
 ```text
 /
 ├── install.sh          # Setup script (Mac specific): Installs deps, venv, symlinks.
-├── update.sh           # Maintenance script: Updates venv tools, fixes symlinks.
 ├── .gitignore          # Git ignore rules (ignores nvim/venv).
 ├── README.md           # User facing documentation.
 └── nvim/               # The actual configuration directory (symlinked to ~/.config/nvim).
