@@ -28,7 +28,7 @@ opt.splitright = true       -- Vertical splits open to the right
 opt.splitbelow = true       -- Horizontal splits open below
 
 -- System
-opt.clipboard = "unnamedplus" -- Sync with Mac clipboard
+opt.clipboard = "unnamedplus" -- Sync with system clipboard
 opt.undofile = true           -- Persistent undo
 opt.updatetime = 250          -- Faster completion update
 opt.timeoutlen = 500          -- Faster key sequence completion

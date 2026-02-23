@@ -6,12 +6,23 @@ Welcome to a professional Neovim setup designed for high-velocity Python develop
 
 ## 🛠 Installation & Setup
 
-### 1. Prerequisite (Mac)
-Ensure you have Homebrew installed. Then, simply run the installation script:
+### 1. Prerequisites & Installation
+
+**macOS:**
 ```bash
 ./install.sh
 ```
-This script handles system dependencies (`ripgrep`, `fd`, `lazygit`), sets up a dedicated Python virtual environment for Neovim, and installs the required Nerd Font.
+Requires [Homebrew](https://brew.sh). The script installs system dependencies (`ripgrep`, `fd`, `lazygit`, `tree-sitter-cli`), sets up a dedicated Python virtual environment for Neovim, and installs the Hack Nerd Font.
+
+**Ubuntu / Debian Linux:**
+```bash
+./install_ubuntu.sh
+```
+The script installs dependencies via `apt` and downloads `lazygit` and Neovim from their official GitHub releases. It also installs the Hack Nerd Font to `~/.local/share/fonts`.
+
+> **Note (Ubuntu clipboard):** The config uses `unnamedplus` for system clipboard integration. On X11, `xclip` is installed automatically. On Wayland, install `wl-clipboard` manually (`sudo apt install wl-clipboard`).
+
+> **Note (Ubuntu `fd`):** The `fd` binary is packaged as `fdfind` on Ubuntu. The script creates a `~/.local/bin/fd` symlink — ensure `~/.local/bin` is in your `PATH`.
 
 ### 2. Post-Installation
 1.  **Change Font:** Set your terminal font to **"Hack Nerd Font"** to ensure all icons display correctly.
