@@ -12,12 +12,47 @@ return {
     },
     config = function()
       require("mason").setup()
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
       require("mason-lspconfig").setup({
-        ensure_installed = { "pyright", "ruff", "lua_ls", "texlab" },
+        ensure_installed = { "basedpyright", "ruff", "lua_ls", "texlab" },
         handlers = {
           function(server_name)
             require("lspconfig")[server_name].setup({
-              capabilities = require("cmp_nvim_lsp").default_capabilities(),
+              capabilities = capabilities,
+            })
+          end,
+          ["basedpyright"] = function()
+            require("lspconfig").basedpyright.setup({
+              capabilities = capabilities,
+              -- Prioritise workspace-root markers over per-package pyproject.toml
+              -- so multi-package repos anchor at the correct root.
+              root_dir = function(fname)
+                local util = require("lspconfig.util")
+                return util.root_pattern("pyrightconfig.json", "uv.lock")(fname)
+                  or util.root_pattern("pyproject.toml", "setup.py", "setup.cfg", "requirements.txt")(fname)
+              end,
+              -- For uv projects the env may live outside .venv.
+              -- Create/refresh a .venv symlink and point basedpyright at it via
+              -- venvPath + venv so it treats it as a proper venv (not source).
+              on_new_config = function(new_config, root)
+                if vim.fn.filereadable(root .. "/uv.lock") == 1 then
+                  local prefix = vim.fn.trim(vim.fn.system(
+                    "cd " .. vim.fn.shellescape(root)
+                    .. " && uv run python -c 'import sys; print(sys.prefix)' 2>/dev/null"
+                  ))
+                  if prefix ~= "" and vim.fn.isdirectory(prefix) == 1 then
+                    vim.fn.system(
+                      "ln -sfn " .. vim.fn.shellescape(prefix)
+                      .. " " .. vim.fn.shellescape(root .. "/.venv")
+                    )
+                  end
+                end
+                if vim.fn.isdirectory(root .. "/.venv") == 1 then
+                  new_config.settings = vim.tbl_deep_extend("force", new_config.settings or {}, {
+                    python = { venvPath = root, venv = ".venv" },
+                  })
+                end
+              end,
             })
           end,
         },

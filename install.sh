@@ -62,6 +62,27 @@ fi
 ln -s "$SOURCE_DIR" "$TARGET_DIR"
 echo "   Symlink created: $SOURCE_DIR -> $TARGET_DIR"
 
+# 6. Link tmux configuration (optional)
+echo ""
+read -r -p "🔧 Link .tmux.conf to ~/.tmux.conf? [y/N] " link_tmux || true
+if [[ "$link_tmux" =~ ^[Yy]$ ]]; then
+    TMUX_SOURCE="$(pwd)/.tmux.conf"
+    TMUX_TARGET="$HOME/.tmux.conf"
+    if [ -f "$TMUX_TARGET" ] && [ ! -L "$TMUX_TARGET" ]; then
+        echo "   Backing up existing tmux config to ${TMUX_TARGET}.backup"
+        mv "$TMUX_TARGET" "${TMUX_TARGET}.backup"
+    fi
+    if [ -L "$TMUX_TARGET" ]; then
+        rm "$TMUX_TARGET"
+    fi
+    ln -s "$TMUX_SOURCE" "$TMUX_TARGET"
+    echo "   Symlink created: $TMUX_SOURCE -> $TMUX_TARGET"
+    echo "   Reload inside tmux with: prefix + r"
+else
+    echo "   Skipped tmux config."
+fi
+
+echo ""
 echo "✅ Setup Complete!"
 echo "   1. Open your terminal settings and change the font to 'Hack Nerd Font'."
 echo "   2. Run 'nvim' to finish plugin installation."
