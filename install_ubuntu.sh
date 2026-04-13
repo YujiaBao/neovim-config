@@ -31,17 +31,32 @@ fi
 
 # 2. Install Neovim (latest stable from GitHub releases)
 echo "📝 Installing Neovim..."
-if ! command -v nvim &> /dev/null; then
+NVIM_LATEST=$(curl -s "https://api.github.com/repos/neovim/neovim/releases/latest" \
+    | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+NVIM_CURRENT=""
+if command -v nvim &> /dev/null; then
+    NVIM_CURRENT="v$(nvim --version | head -1 | sed -E 's/NVIM v//')"
+fi
+
+if [ "$NVIM_CURRENT" != "$NVIM_LATEST" ]; then
+    echo "   Upgrading Neovim: ${NVIM_CURRENT:-not installed} -> $NVIM_LATEST"
+    ARCH=$(uname -m)
+    case "$ARCH" in
+        x86_64)  NVIM_ARCH="nvim-linux-x86_64" ;;
+        aarch64) NVIM_ARCH="nvim-linux-arm64" ;;
+        *)       echo "❌ Unsupported architecture: $ARCH"; exit 1 ;;
+    esac
     NVIM_TMP=$(mktemp -d)
-    curl -L "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz" \
+    curl -L "https://github.com/neovim/neovim/releases/latest/download/${NVIM_ARCH}.tar.gz" \
         -o "$NVIM_TMP/nvim.tar.gz"
     tar -xzf "$NVIM_TMP/nvim.tar.gz" -C "$NVIM_TMP"
-    sudo mv "$NVIM_TMP/nvim-linux-x86_64" /opt/nvim
+    sudo rm -rf /opt/nvim
+    sudo mv "$NVIM_TMP/$NVIM_ARCH" /opt/nvim
     sudo ln -sf /opt/nvim/bin/nvim /usr/local/bin/nvim
     rm -rf "$NVIM_TMP"
-    echo "   Neovim installed to /opt/nvim"
+    echo "   Neovim $NVIM_LATEST installed to /opt/nvim"
 else
-    echo "   Neovim already installed: $(nvim --version | head -1)"
+    echo "   Neovim already up to date: $NVIM_CURRENT"
 fi
 
 # 3. Install lazygit (latest from GitHub releases)
